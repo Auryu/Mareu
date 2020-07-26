@@ -73,7 +73,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:hint="Nom"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:inputType="text"
+        android:imeOptions="actionNext"/>
 
     <EditText
         android:id="@+id/subject"
@@ -86,7 +88,9 @@
         android:hint="Sujet de la réunion"
         android:gravity="center"
         android:lines="2"
-        android:minLines="2"/>
+        android:minLines="2"
+        android:inputType="text"
+        android:imeOptions="actionNext"/>
 
     <Spinner
         android:id="@+id/room"
@@ -107,7 +111,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:hint="Ajouter des participants"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:inputType="textEmailAddress"
+        android:imeOptions="actionDone"/>
 
     <Button
         android:id="@+id/book"
@@ -120,7 +126,7 @@
         android:layout_marginTop="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:background="@drawable/rounded_button"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

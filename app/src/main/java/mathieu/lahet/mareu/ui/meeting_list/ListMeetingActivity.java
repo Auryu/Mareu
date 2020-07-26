@@ -21,8 +21,6 @@ public class ListMeetingActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.container)
-    ViewPager mViewPager;
 
 
     @Override

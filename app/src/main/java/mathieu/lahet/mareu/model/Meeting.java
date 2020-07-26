@@ -13,10 +13,10 @@ public class Meeting {
     private String date;
 
     /** Meeting hour */
-    private String time;
+    private String hour;
 
     /** Meeting name */
-    private String name;
+    private String creatorName;
 
     /** Meeting subject */
     private String subject;
@@ -25,26 +25,26 @@ public class Meeting {
     private String room;
 
     /** Mail adress */
-    private String mail;
+    private String participant;
 
     /**
      * Constructor
      * @param id
      * @param date
-     * @param time
-     * @param name
+     * @param hour
+     * @param creatorName
      * @param subject
      * @param room
-     * @param mail
+     * @param participant
      */
-    public Meeting (long id, String date, String time, String name, String subject, String room, String mail) {
+    public Meeting (long id, String date, String hour, String creatorName, String subject, String room, String participant) {
         this.id = id;
         this.date = date;
-        this.time = time;
-        this.name = name;
+        this.hour = hour;
+        this.creatorName = creatorName;
         this.subject = subject;
         this.room = room;
-        this.mail = mail;
+        this.participant = participant;
     }
 
     public Long getId(){return id;}
@@ -55,13 +55,13 @@ public class Meeting {
 
     public void setDate(String date){this.date = date;}
 
-    public String getTime(){return time;}
+    public String getHour(){return hour;}
 
-    public void setTime(String time){this.time = time;}
+    public void setHour(String time){this.hour = hour;}
 
-    public String getName(){return name;}
+    public String getCreatorName(){return creatorName;}
 
-    public void setName(String name){this.name = name;}
+    public void setCreatorName(String creatorName){this.creatorName = creatorName;}
 
     public String getSubject(){return subject;}
 
@@ -71,9 +71,9 @@ public class Meeting {
 
     public void setRoom(String room){this.room = room;}
 
-    public String getMail(){return mail;}
+    public String getParticipant(){return participant;}
 
-    public void setMail(String mail){this.mail = mail;}
+    public void setParticipant(String participant){this.participant = participant;}
 
     @Override
     public boolean equals(Object o) {

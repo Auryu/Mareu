@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list_meetings"
-    android:name="mathieu.lahet.mareu.ui.neighbour_list.NeighbourFragment"
+    android:name="mathieu.lahet.mareu.ui.meeting_list.MeetingFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context="mathieu.lahet.mareu.ui.meeting_list.MeetingFragment"
+    tools:context=".ui.meeting_list.MeetingFragment"
     tools:listitem="@layout/fragment_meeting" />

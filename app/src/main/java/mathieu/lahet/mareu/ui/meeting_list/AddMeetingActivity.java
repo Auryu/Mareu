@@ -8,12 +8,16 @@ import androidx.fragment.app.FragmentActivity;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -50,7 +54,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     @BindView(R.id.in_time)
     EditText txtTime;
     @BindView(R.id.name)
-    EditText workerName;
+    EditText creatorName;
     @BindView(R.id.room)
     Spinner mSpinner;
     @BindView(R.id.subject)
@@ -60,7 +64,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     @BindView(R.id.book)
     Button bookRoom;
 
-    String[] mRooms = {"Salle A", "Salle B", "Salle C", "Salle D", "Salle E", "Salle F", "Salle G", "Salle H", "Salle I", "Salle J"};
+    String[] mRooms = {"Réunion A", "Réunion B", "Réunion C", "Réunion D", "Réunion E", "Réunion F", "Réunion G", "Réunion H", "Réunion I", "Réunion J"};
 
     private int mYear, mMonth, mDay, mHour, mMinute;
 
@@ -76,6 +80,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
         btnDatePicker.setOnClickListener(this);
         btnTimePicker.setOnClickListener(this);
+
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, mRooms);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -123,13 +128,12 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                         public void onTimeSet(TimePicker view, int hourOfDay,
                                               int minute) {
 
-                            txtTime.setText(hourOfDay + ":" + minute);
+                            txtTime.setText(hourOfDay + "h" + minute);
                         }
                     }, mHour, mMinute, false);
             timePickerDialog.show();
         }
     }
-
 
 
     @Override
@@ -143,6 +147,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         return super.onOptionsItemSelected(item);
     }
 
+
     private void init(){
         participantsName.addTextChangedListener(new TextWatcher(){
             @Override
@@ -154,20 +159,22 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         });
     }
 
+
     @OnClick(R.id.book)
     void addMeeting() {
         Meeting meeting = new Meeting(
                 System.currentTimeMillis(),
                 txtDate.getText().toString(),
                 txtTime.getText().toString(),
-                workerName.getText().toString(),
-                mSpinner.getResources().toString(),
+                creatorName.getText().toString(),
                 meetingSubject.getText().toString(),
+                mSpinner.getSelectedItem().toString(),
                 participantsName.getText().toString()
         );
         mApiService.createMeeting(meeting);
         finish();
     }
+
 
     /**
      * Used to navigate to this activity
