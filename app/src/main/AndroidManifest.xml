@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-         <activity android:name=".ui.meeting_list.AddMeetingActivity" >
+         <activity android:name=".ui.meeting_list.AddMeetingActivity"
+             android:theme="@style/AppTheme.NoActionBar">
     </activity>
     </application>
 

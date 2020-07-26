@@ -44,25 +44,27 @@ import mathieu.lahet.mareu.service.MeetingApiService;
 public class AddMeetingActivity extends AppCompatActivity implements View.OnClickListener {
 
     @BindView(R.id.create)
-    TextView createMeeting;
+    TextView mCreateMeeting;
+    @BindView(R.id.arrow_back)
+    ImageButton mBack;
     @BindView(R.id.btn_date)
-    ImageButton btnDatePicker;
+    ImageButton mBtnDatePicker;
     @BindView(R.id.btn_time)
-    ImageButton btnTimePicker;
+    ImageButton mBtnTimePicker;
     @BindView(R.id.in_date)
-    EditText txtDate;
+    EditText mTxtDate;
     @BindView(R.id.in_time)
-    EditText txtTime;
+    EditText mTxtTime;
     @BindView(R.id.name)
-    EditText creatorName;
+    EditText mCreatorName;
     @BindView(R.id.room)
     Spinner mSpinner;
     @BindView(R.id.subject)
-    EditText meetingSubject;
+    EditText mMeetingSubject;
     @BindView(R.id.participants)
-    EditText participantsName;
+    EditText mParticipantsName;
     @BindView(R.id.book)
-    Button bookRoom;
+    Button mBookRoom;
 
     String[] mRooms = {"Réunion A", "Réunion B", "Réunion C", "Réunion D", "Réunion E", "Réunion F", "Réunion G", "Réunion H", "Réunion I", "Réunion J"};
 
@@ -76,10 +78,9 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_add_meeting);
         ButterKnife.bind(this);
         mApiService = DI.getMeetingApiService();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        btnDatePicker.setOnClickListener(this);
-        btnTimePicker.setOnClickListener(this);
+        mBtnDatePicker.setOnClickListener(this);
+        mBtnTimePicker.setOnClickListener(this);
 
 
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, mRooms);
@@ -88,10 +89,17 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
         init();
 
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     @Override
-    public void onClick(View v) {if (v == btnDatePicker) {
+    public void onClick(View v) {if (v == mBtnDatePicker) {
 
         // Get Current Date
         final Calendar c = Calendar.getInstance();
@@ -107,13 +115,13 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
 
-                        txtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
+                        mTxtDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
 
                     }
                 }, mYear, mMonth, mDay);
         datePickerDialog.show();
     }
-        if (v == btnTimePicker) {
+        if (v == mBtnTimePicker) {
 
             // Get Current Time
             final Calendar c = Calendar.getInstance();
@@ -128,7 +136,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                         public void onTimeSet(TimePicker view, int hourOfDay,
                                               int minute) {
 
-                            txtTime.setText(hourOfDay + "h" + minute);
+                            mTxtTime.setText(hourOfDay + "h" + minute);
                         }
                     }, mHour, mMinute, false);
             timePickerDialog.show();
@@ -149,32 +157,30 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
 
     private void init(){
-        participantsName.addTextChangedListener(new TextWatcher(){
+        mParticipantsName.addTextChangedListener(new TextWatcher(){
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) { }
             @Override
-            public void afterTextChanged(Editable s) { bookRoom.setEnabled(s.length() > 0); }
+            public void afterTextChanged(Editable s) { mBookRoom.setEnabled(s.length() > 0); }
         });
     }
-
 
     @OnClick(R.id.book)
     void addMeeting() {
         Meeting meeting = new Meeting(
                 System.currentTimeMillis(),
-                txtDate.getText().toString(),
-                txtTime.getText().toString(),
-                creatorName.getText().toString(),
-                meetingSubject.getText().toString(),
+                mTxtDate.getText().toString(),
+                mTxtTime.getText().toString(),
+                mCreatorName.getText().toString(),
+                mMeetingSubject.getText().toString(),
                 mSpinner.getSelectedItem().toString(),
-                participantsName.getText().toString()
+                mParticipantsName.getText().toString()
         );
         mApiService.createMeeting(meeting);
         finish();
     }
-
 
     /**
      * Used to navigate to this activity
@@ -184,4 +190,7 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         Intent addMeetingActivityIntent = new Intent(activity, AddMeetingActivity.class);
         ActivityCompat.startActivity(activity, addMeetingActivityIntent, null);
     }
+
+
+
 }
