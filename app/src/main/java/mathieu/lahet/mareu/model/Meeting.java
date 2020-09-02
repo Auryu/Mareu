@@ -87,5 +87,4 @@ public class Meeting {
     public int hashCode() {
         return Objects.hash(id);
     }
-
 }

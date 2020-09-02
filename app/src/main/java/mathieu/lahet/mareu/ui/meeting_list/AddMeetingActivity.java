@@ -1,37 +1,34 @@
 package mathieu.lahet.mareu.ui.meeting_list;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
-import android.annotation.SuppressLint;
+
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.KeyEvent;
-import android.view.MenuItem;
+
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
+
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
+
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import java.util.ArrayList;
+
 import java.util.Calendar;
-import java.util.List;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,8 +63,6 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     @BindView(R.id.book)
     Button mBookRoom;
 
-    String[] mRooms = {"Réunion A", "Réunion B", "Réunion C", "Réunion D", "Réunion E", "Réunion F", "Réunion G", "Réunion H", "Réunion I", "Réunion J"};
-
     private int mYear, mMonth, mDay, mHour, mMinute;
 
     private MeetingApiService mApiService;
@@ -83,10 +78,10 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         mBtnTimePicker.setOnClickListener(this);
 
 
-        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, mRooms);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.spinner_list_item_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
-
         init();
 
         mBack.setOnClickListener(new View.OnClickListener() {
@@ -95,20 +90,21 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
                 finish();
             }
         });
-
     }
 
     @Override
-    public void onClick(View v) {if (v == mBtnDatePicker) {
+    public void onClick(View v) {
 
-        // Get Current Date
-        final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
+        if (v == mBtnDatePicker) {
+
+            // Get Current Date
+            final Calendar c = Calendar.getInstance();
+            mYear = c.get(Calendar.YEAR);
+            mMonth = c.get(Calendar.MONTH);
+            mDay = c.get(Calendar.DAY_OF_MONTH);
 
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+            DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 new DatePickerDialog.OnDateSetListener() {
 
                     @Override
@@ -119,8 +115,9 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
 
                     }
                 }, mYear, mMonth, mDay);
-        datePickerDialog.show();
-    }
+            datePickerDialog.show();
+        }
+
         if (v == mBtnTimePicker) {
 
             // Get Current Time
@@ -142,19 +139,6 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
             timePickerDialog.show();
         }
     }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home : {
-                finish();
-                return true;
-            }
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 
     private void init(){
         mParticipantsName.addTextChangedListener(new TextWatcher(){
@@ -190,7 +174,5 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         Intent addMeetingActivityIntent = new Intent(activity, AddMeetingActivity.class);
         ActivityCompat.startActivity(activity, addMeetingActivityIntent, null);
     }
-
-
 
 }

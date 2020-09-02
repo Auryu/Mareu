@@ -19,15 +19,15 @@ import java.util.List;
 import mathieu.lahet.mareu.R;
 import mathieu.lahet.mareu.di.DI;
 import mathieu.lahet.mareu.events.DeleteMeetingEvent;
+import mathieu.lahet.mareu.events.FilterMeetingsByDate;
+import mathieu.lahet.mareu.events.FilterMeetingsByRoom;
 import mathieu.lahet.mareu.model.Meeting;
 import mathieu.lahet.mareu.service.MeetingApiService;
 
 public class MeetingFragment extends Fragment {
 
-    private MeetingApiService mApiService;
-    private List<Meeting> mMeetings;
+    public MeetingApiService mApiService;
     private RecyclerView mRecyclerView;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -48,8 +48,8 @@ public class MeetingFragment extends Fragment {
      * Init the meeting's list
      */
     private void initList(){
-        mMeetings = mApiService.getMeetings();
-        mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(mMeetings));
+        List<Meeting> meetings = mApiService.getMeetings();
+        mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(meetings));
     }
 
     @Override
@@ -62,6 +62,7 @@ public class MeetingFragment extends Fragment {
     public void onStart() {
         super.onStart();
         EventBus.getDefault().register(this);
+        initList();
     }
 
     @Override
@@ -71,13 +72,23 @@ public class MeetingFragment extends Fragment {
     }
 
     /**
-     * Fired if the user clicks on a delete button
+     * Fired if the user clicks on delete button
      * @param event
      */
     @Subscribe
     public void onDeleteNeighbour(DeleteMeetingEvent event) {
         mApiService.deleteMeeting(event.meeting);
         initList();
+    }
+
+    @Subscribe
+    public void onFilterByDate(FilterMeetingsByDate event){
+        mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(mApiService.getFilteredMeetingsByDate(event.date)));
+    }
+
+    @Subscribe
+    public void onFilterByRoom(FilterMeetingsByRoom event){
+        mRecyclerView.setAdapter(new MyMeetingRecyclerViewAdapter(mApiService.getFilteredMeetingsByDate(event.room)));
     }
 
 }

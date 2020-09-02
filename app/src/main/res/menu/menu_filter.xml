@@ -1,0 +1,71 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="mathieu.lahet.mareu.ui.meeting_list.ListMeetingActivity">
+
+    <item
+        android:id="@+id/filter_list"
+        android:icon="@drawable/ic_baseline_filter_list_24"
+        android:title="@string/action_filter"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/date_filter"
+                android:title="Date"
+                app:showAsAction="never" />
+
+            <item
+                android:id="@+id/room_filter"
+                android:title="Salle"
+                app:showAsAction="never">
+                <menu>
+                    <item
+                        android:id="@+id/room_A"
+                        android:title="Réunion A"
+                        app:showAsAction="never" />
+                    <item
+                        android:id="@+id/room_B"
+                        android:title="Réunion B"
+                        app:showAsAction="never" />
+                    <item
+                        android:id="@+id/room_C"
+                        android:title="Réunion C"
+                        app:showAsAction="never" />
+                    <item
+                        android:id="@+id/room_D"
+                        android:title="Réunion D"
+                        app:showAsAction="never" />
+                    <item
+                        android:id="@+id/room_E"
+                        android:title="Réunion E"
+                        app:showAsAction="never" />
+                    <item
+                        android:id="@+id/room_F"
+                        android:title="Réunion F"
+                        app:showAsAction="never" />
+                    <item
+                        android:id="@+id/room_G"
+                        android:title="Réunion G"
+                        app:showAsAction="never" />
+                    <item
+                        android:id="@+id/room_H"
+                        android:title="Réunion H"
+                        app:showAsAction="never" />
+                    <item
+                        android:id="@+id/room_I"
+                        android:title="Réunion I"
+                        app:showAsAction="never" />
+                    <item
+                        android:id="@+id/room_J"
+                        android:title="Réunion J"
+                        app:showAsAction="never" />
+                </menu>
+            </item>
+
+            <item
+                android:id="@+id/no_filter"
+                android:title="Sans filtre"
+                app:showAsAction="never" />
+        </menu>
+    </item>
+</menu>
