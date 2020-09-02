@@ -63,6 +63,8 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
     @BindView(R.id.book)
     Button mBookRoom;
 
+    String[] room = new String[] {"Réunion A", "Réunion B", "Réunion C", "Réunion D", "Réunion F", "Réunion G", "Réunion H", "Réunion I", "Réunion J"};
+
     private int mYear, mMonth, mDay, mHour, mMinute;
 
     private MeetingApiService mApiService;
@@ -77,12 +79,9 @@ public class AddMeetingActivity extends AppCompatActivity implements View.OnClic
         mBtnDatePicker.setOnClickListener(this);
         mBtnTimePicker.setOnClickListener(this);
 
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.spinner_list_item_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, room);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mSpinner.setAdapter(adapter);
-        init();
 
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
